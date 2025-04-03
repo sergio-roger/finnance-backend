@@ -1,13 +1,25 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
+import { UserService } from "@modules/user/user.service";
 
+const userService = new UserService();
 export class UserController {
   // Obtener todos los usuarios
   public async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
       // TODO: Lógica para obtener usuarios
-      res.status(200).json({ message: 'getAllUsers - no implementado' });
+      res.status(200).json({
+        message: "🔥 ¡Usuarios obtenidos de mongodb!",
+        data: [
+          {
+            id: 1,
+            name: "Sergio Web",
+            email: "sergioroger@gmail.com",
+            age: 25,
+          },
+        ],
+      });
     } catch (error) {
-      res.status(500).json({ error: 'Error al obtener usuarios' });
+      res.status(500).json({ error: "Error al obtener usuarios" });
     }
   }
 
@@ -18,18 +30,23 @@ export class UserController {
       // TODO: Lógica para obtener usuario por ID
       res.status(200).json({ message: `getUserById - no implementado: ${id}` });
     } catch (error) {
-      res.status(500).json({ error: 'Error al obtener usuario' });
+      res.status(500).json({ error: "Error al obtener usuario" });
     }
   }
 
   // Crear un nuevo usuario
   public async createUser(req: Request, res: Response): Promise<void> {
     try {
-      const userData = req.body;
-      // TODO: Lógica para crear usuario
-      res.status(201).json({ message: 'createUser - no implementado', data: userData });
+      const user = req.body;
+      const response = await userService.createUser(user);
+    
+      res.status(response.code).json(response);
     } catch (error) {
-      res.status(500).json({ error: 'Error al crear usuario' });
+      res.status(500).json({ 
+        code: 510,
+        status: false,
+        error: "Error al crear usuario" 
+      });
     }
   }
 
@@ -39,9 +56,12 @@ export class UserController {
       const { id } = req.params;
       const updates = req.body;
       // TODO: Lógica para actualizar usuario
-      res.status(200).json({ message: `updateUser - no implementado: ${id}`, data: updates });
+      res.status(200).json({
+        message: `updateUser - no implementado: ${id}`,
+        data: updates,
+      });
     } catch (error) {
-      res.status(500).json({ error: 'Error al actualizar usuario' });
+      res.status(500).json({ error: "Error al actualizar usuario" });
     }
   }
 
@@ -52,7 +72,7 @@ export class UserController {
       // TODO: Lógica para eliminar usuario
       res.status(200).json({ message: `deleteUser - no implementado: ${id}` });
     } catch (error) {
-      res.status(500).json({ error: 'Error al eliminar usuario' });
+      res.status(500).json({ error: "Error al eliminar usuario" });
     }
   }
 }

@@ -2,14 +2,15 @@ version: '3.8'
 
 services:
   api:
-    build: .
-    container_name: backend_api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: backend_api_dev
     ports:
       - "6900:6900"
     volumes:
-      - .:/app              
+      - .:/app
       - /app/node_modules
-    command: npm run dev
     environment:
       - PORT=6900
       - MONGO_URI=mongodb://mongo:27017/finnance
@@ -20,10 +21,9 @@ services:
 
   mongo:
     image: mongo:6
-    container_name: backend_mongo
-    restart: always
+    container_name: backend_mongo_dev
     ports:
-      - "27017:27017"
+      - "6800:27017"
     volumes:
       - mongo-data:/data/db
     networks:

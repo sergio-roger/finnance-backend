@@ -15,7 +15,7 @@ export class App {
     this.port = port;
     this.middlewares();
     this.routes();
-    // this.mongoConnection();
+    this.mongoConnection();
   }
 
   private middlewares(): void {
@@ -26,14 +26,14 @@ export class App {
     this.app.use('/api/users', userRoutes);
   }
 
-  // private async mongoConnection(): Promise<void> {
-  //   try {
-  //     await mongoose.connect(process.env.MONGO_URI || '');
-  //     console.log('✅ Connected to MongoDB');
-  //   } catch (error) {
-  //     console.error('❌ MongoDB connection error:', error);
-  //   }
-  // }
+  private async mongoConnection(): Promise<void> {
+    try {
+      await mongoose.connect(process.env.MONGO_URI || '');
+      console.log('✅ Connected to MongoDB');
+    } catch (error) {
+      console.error('❌ MongoDB connection error:', error);
+    }
+  }
 
   public listen(): void {
     this.app.listen(this.port, () => {

@@ -1,0 +1,23 @@
+# Usamos una imagen liviana de Node
+FROM node:18-alpine
+
+# Directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiamos solo los package.json para instalar dependencias primero (mejor cacheo)
+COPY package*.json ./
+
+# Instalamos dependencias del proyecto
+RUN npm install
+
+# Instalamos globalmente ts-node-dev para desarrollo
+RUN npm install -g ts-node-dev
+
+# Copiamos el resto del código
+COPY . .
+
+# Exponemos el puerto que usa la app
+EXPOSE 6900
+
+# Comando de desarrollo
+CMD ["npm", "run", "dev"]
