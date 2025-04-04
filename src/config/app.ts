@@ -1,8 +1,8 @@
-// src/app.ts
+import dotenv from 'dotenv';
 import express, { Application } from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import { userRoutes } from '@modules/user/user.routes';
+import { routes } from './app.routes';
+import corsMiddleware from './cors';
 
 dotenv.config();
 
@@ -20,10 +20,11 @@ export class App {
 
   private middlewares(): void {
     this.app.use(express.json());
+    this.app.use(corsMiddleware);
   }
 
   private routes(): void {
-    this.app.use('/api/users', userRoutes);
+    routes(this.app);
   }
 
   private async mongoConnection(): Promise<void> {
