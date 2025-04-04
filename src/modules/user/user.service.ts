@@ -1,6 +1,7 @@
 import { ResponseType } from '@config/types/response.type';
-import { UserModel } from '@modules/user/user.model';
+import { IUserDocument, UserModel } from '@modules/user/user.model';
 import { IUser } from '@modules/user/user.types';
+import bcrypt from 'bcrypt';
 
 export class UserService {
   async createUser(userData: IUser) {
@@ -17,15 +18,23 @@ export class UserService {
       return response;
     }
 
-    const newUser = new UserModel(userData);
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+    const newUser = new UserModel({
+      ...userData,
+      password: hashedPassword,
+    });
     const user = await newUser.save();
-    const resppnse: ResponseType = {
+    
+    const response: ResponseType = {
       code: 201,
       status: true,
       message: 'Usuario creado',
-      data: user,
+      data: {
+        _id: user._id,
+      },
     };
 
-    return resppnse;
+    return response;
   }
 }
