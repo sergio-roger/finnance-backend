@@ -5,14 +5,14 @@ import { Application, Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 
 export function routes(app: Application): void {
-  const router = Router();
+	const router = Router();
 
-  // Routes of modules
-  router.use('/users', userRoutes);
+	// Routes of modules
+	router.use('/users', userRoutes);
 
-  // Versioning
-  app.use(prefixRoute('/api/v1', router));
+	// Versioning
+	app.use(prefixRoute('/api/v1', router));
 
-  // Swagger UI
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+	// Swagger UI
+	app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 }

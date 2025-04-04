@@ -1,6 +1,6 @@
 export interface ResponseType<T = unknown> {
-  code: number;
-  message: string;
-  status: boolean;
-  data?: T;
+	code: number;
+	data?: T;
+	message: string;
+	status: boolean;
 }
