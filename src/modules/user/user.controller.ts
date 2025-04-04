@@ -3,7 +3,6 @@ import { UserService } from "@modules/user/user.service";
 
 const userService = new UserService();
 export class UserController {
-  // Obtener todos los usuarios
   public async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
       // TODO: Lógica para obtener usuarios
@@ -39,13 +38,13 @@ export class UserController {
     try {
       const user = req.body;
       const response = await userService.createUser(user);
-    
+
       res.status(response.code).json(response);
     } catch (error) {
-      res.status(500).json({ 
+      res.status(500).json({
         code: 510,
         status: false,
-        error: "Error al crear usuario" 
+        error: "Error al crear usuario",
       });
     }
   }

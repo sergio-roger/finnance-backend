@@ -9,7 +9,8 @@
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@utils/*": ["utils/*"],
-      "@middlewares/*": ["middlewares/*"]
+      "@middlewares/*": ["middlewares/*"],
+      "@docs/*": ["docs/*"],
     },
     "strict": true,
     "esModuleInterop": true,
