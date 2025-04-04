@@ -1,3 +1,4 @@
+import { authSwaggerDocs } from '@docs/auth.swagger';
 import { userSwaggerDocs } from '@docs/user.swagger';
 
 const baseDoc = {
@@ -14,6 +15,7 @@ const baseDoc = {
 	],
 	paths: {
 		...userSwaggerDocs,
+		...authSwaggerDocs,
 	},
 };
 

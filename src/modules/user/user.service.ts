@@ -1,4 +1,4 @@
-import { ResponseType } from '@config/types/response.type';
+import { ApiResponse } from '@config/response/api.response';
 import { UserModel } from '@modules/user/user.model';
 import { IUser } from '@modules/user/user.types';
 import bcrypt from 'bcrypt';
@@ -8,10 +8,10 @@ export class UserService {
 		const userExists = await UserModel.findOne({ email: userData.email });
 
 		if (userExists) {
-			const response: ResponseType = {
+			const response: ApiResponse = {
 				code: 401,
 				status: false,
-				message: 'El usuario ya existe',
+				message: 'Email ya se encuentra registrado',
 				data: null,
 			};
 
@@ -26,7 +26,7 @@ export class UserService {
 		});
 		const user = await newUser.save();
 
-		const response: ResponseType = {
+		const response: ApiResponse = {
 			code: 201,
 			status: true,
 			message: 'Usuario creado',
