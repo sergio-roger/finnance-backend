@@ -5,35 +5,23 @@ const userService = new UserService();
 export class UserController {
 	public async getAllUsers(req: Request, res: Response): Promise<void> {
 		try {
-			// TODO: Lógica para obtener usuarios
-			res.status(200).json({
-				message: '🔥 ¡Usuarios obtenidos de mongodb!',
-				data: [
-					{
-						id: 1,
-						name: 'Sergio Web',
-						email: 'sergioroger@gmail.com',
-						age: 25,
-					},
-				],
-			});
+			const result = await userService.getAllUsers();
+			res.status(result.code).json(result);
 		} catch (error) {
 			res.status(500).json({ error: 'Error al obtener usuarios' });
 		}
 	}
 
-	// Obtener un usuario por ID
 	public async getUserById(req: Request, res: Response): Promise<void> {
 		try {
 			const { id } = req.params;
-			// TODO: Lógica para obtener usuario por ID
-			res.status(200).json({ message: `getUserById - no implementado: ${id}` });
+			const result = await userService.getUserById(id);
+			res.status(result.code).json(result);
 		} catch (error) {
 			res.status(500).json({ error: 'Error al obtener usuario' });
 		}
 	}
 
-	// Crear un nuevo usuario
 	public async createUser(req: Request, res: Response): Promise<void> {
 		try {
 			const user = req.body;
