@@ -1,51 +1,22 @@
 export const userSwaggerDocs = {
-	'/users': {
-		post: {
-			tags: ['Users'],
-			summary: 'Crear un nuevo usuario',
-			requestBody: {
-				required: true,
-				content: {
-					'application/json': {
-						schema: {
-							type: 'object',
-							properties: {
-								code: {
-									type: 'integer',
-									example: 200,
-								},
-								status: {
-									type: 'boolean',
-									example: true,
-								},
-								data: {
+	paths: {
+		'/users': {
+			get: {
+				tags: ['Users'],
+				summary: 'Obtener todos los usuarios',
+				responses: {
+					200: {
+						description: 'Lista de usuarios obtenida correctamente',
+						content: {
+							'application/json': {
+								schema: {
 									type: 'object',
 									properties: {
-										name: { type: 'string', example: 'Juan Pérez' },
-										email: { type: 'string', example: 'juan@example.com' },
-										password: { type: 'string', example: '123456' },
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			responses: {
-				201: {
-					description: 'Usuario creado correctamente',
-					content: {
-						'application/json': {
-							schema: {
-								type: 'object',
-								properties: {
-									code: { type: 'integer', example: 201 },
-									status: { type: 'boolean', example: false },
-									data: {
-										type: 'object',
-										properties: {
-											email: { type: 'string', example: 'juan@example.com' },
-											password: { type: 'string', example: 'asdfg4566' },
+										code: { type: 'integer', example: 200 },
+										status: { type: 'boolean', example: true },
+										data: {
+											type: 'array',
+											items: { $ref: '#/components/schemas/User' },
 										},
 									},
 								},
@@ -53,22 +24,77 @@ export const userSwaggerDocs = {
 						},
 					},
 				},
-				401: {
-					description: 'Email ya se encuentra registrado',
-					content: {
-						'application/json': {
-							schema: {
-								type: 'object',
-								properties: {
-									code: { type: 'integer', example: 400 },
-									status: { type: 'boolean', example: false },
-									data: {
-										type: 'null',
+			},
+		},
+
+		'/users/{id}': {
+			get: {
+				tags: ['Users'],
+				summary: 'Obtener un usuario por ID',
+				parameters: [
+					{
+						name: 'id',
+						in: 'path',
+						required: true,
+						description: 'ID del usuario a buscar',
+						schema: {
+							type: 'string',
+							example: '65fc123456abcdef12345678',
+						},
+					},
+				],
+				responses: {
+					200: {
+						description: 'Usuario encontrado',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										code: { type: 'integer', example: 200 },
+										status: { type: 'boolean', example: true },
+										data: {
+											type: 'array',
+											items: { $ref: '#/components/schemas/User' },
+										},
 									},
 								},
 							},
 						},
 					},
+					407: {
+						description: 'Usuario no encontrado',
+						content: {
+							'application/json': {
+								schema: {
+									type: 'object',
+									properties: {
+										code: { type: 'integer', example: 407 },
+										status: { type: 'boolean', example: false },
+										data: {
+											type: 'array',
+											example: [],
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+
+	components: {
+		schemas: {
+			User: {
+				type: 'object',
+				properties: {
+					_id: { type: 'string', example: '65fc123456abcdef12345678' },
+					name: { type: 'string', example: 'Juan Pérez' },
+					email: { type: 'string', example: 'juan@example.com' },
+					createdAt: { type: 'string', format: 'date-time' },
+					updatedAt: { type: 'string', format: 'date-time' },
 				},
 			},
 		},

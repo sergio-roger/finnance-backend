@@ -31,7 +31,7 @@ export class UserService {
 		return {
 			code: 200,
 			status: true,
-			message: 'Ususrio existente',
+			message: 'Usuario existente',
 			data: [user],
 		};
 	}

@@ -14,8 +14,13 @@ const baseDoc = {
 		},
 	],
 	paths: {
-		...userSwaggerDocs,
-		...authSwaggerDocs,
+		...userSwaggerDocs.paths,
+		...authSwaggerDocs.paths,
+	},
+	components: {
+		schemas: {
+			...userSwaggerDocs.components.schemas,
+		},
 	},
 };
 
