@@ -159,7 +159,7 @@ export const authSwaggerDocs = {
 											example: false,
 										},
 										message: {
-											type:'string',
+											type: 'string',
 											example: 'Email ya se encuentra registrado',
 										},
 										data: {

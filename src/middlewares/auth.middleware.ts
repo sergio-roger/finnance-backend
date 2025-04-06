@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '@config/jwt/jwt';
+import { NextFunction, Request, Response } from 'express';
 
 const jwtService = new JwtService();
 
@@ -20,8 +20,10 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
 			const decoded = jwtService.verify(token);
 			req.auth = decoded;
 
+			resolve();
 			next();
 		} catch (error) {
+			reject();
 			return res.status(410).json({
 				code: 403,
 				status: false,
