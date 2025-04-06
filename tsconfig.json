@@ -5,6 +5,7 @@
 		"rootDir": "src",
 		"outDir": "dist",
 		"baseUrl": "src",
+		"typeRoots": ["./src/config/types", "./node_modules/@types"],
 		"paths": {
 			"@modules/*": ["modules/*"],
 			"@config/*": ["config/*"],

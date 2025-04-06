@@ -1,6 +1,6 @@
 export const userSwaggerDocs = {
 	paths: {
-		'/users': {
+		'/users/admin': {
 			get: {
 				tags: ['Users'],
 				summary: 'Obtener todos los usuarios',

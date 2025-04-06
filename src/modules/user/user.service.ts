@@ -41,7 +41,7 @@ export class UserService {
 
 		if (userExists) {
 			const response: UserResponse = {
-				code: 401,
+				code: 405,
 				status: false,
 				message: 'Email ya se encuentra registrado',
 				data: [],
